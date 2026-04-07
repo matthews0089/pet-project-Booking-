@@ -1,0 +1,44 @@
+[
+    {
+        "name": "Hilton Kyiv",
+        "location": "м. Київ, бульвар Тараса Шевченка, 30",
+        "services": ["Wi-Fi", "Басейн", "Парковка", "SPA-центр", "Ресторан"],
+        "rooms_quantity": 45,
+        "image_id": 1
+    },
+    {
+        "name": "Fairmont Grand Hotel",
+        "location": "м. Київ, вулиця Набережно-Хрещатицька, 1",
+        "services": ["Wi-Fi", "Парковка", "Спортзал"],
+        "rooms_quantity": 30,
+        "image_id": 2
+    },
+    {
+        "name": "Radisson Blu Resort",
+        "location": "Буковель, Івано-Франківська обл., ділянка Щивки, 220",
+        "services": ["Wi-Fi", "Парковка", "Басейн", "Трансфер до підйомників"],
+        "rooms_quantity": 60,
+        "image_id": 3
+    },
+    {
+        "name": "Grand Hotel Lviv",
+        "location": "м. Львів, проспект Свободи, 13",
+        "services": ["Wi-Fi", "Парковка", "Казино", "SPA-центр"],
+        "rooms_quantity": 25,
+        "image_id": 4
+    },
+    {
+        "name": "Premier Hotel Odesa",
+        "location": "м. Одеса, вулиця Академічна, 32",
+        "services": ["Wi-Fi", "Парковка", "Вид на море", "Власний пляж"],
+        "rooms_quantity": 50,
+        "image_id": 5
+    },
+    {
+        "name": "Edem Resort Medical & SPA",
+        "location": "с. Стрілки, Львівська область",
+        "services": ["Wi-Fi", "Парковка", "Поле для гольфу", "SPA-центр", "Басейн"],
+        "rooms_quantity": 40,
+        "image_id": 6
+    }
+]

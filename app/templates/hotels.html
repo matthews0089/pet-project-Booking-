@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 Бронювання найкращих готелів | KPI Booking</title>
+    <style>
+        /* Основні стилі та скидання */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            color: #2c3e50; 
+            padding: 40px 20px; 
+            line-height: 1.6;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        /* Заголовок */
+        h1 { 
+            text-align: center; 
+            color: #2c3e50; 
+            margin-bottom: 40px; 
+            font-size: 2.5em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Стиль картки готелю */
+        .hotel-card { 
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px; 
+            margin-bottom: 30px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        /* Ефект при наведенні */
+        .hotel-card:hover { 
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+
+        /* Блок із зображенням */
+        .hotel-image-block {
+            flex: 0 0 300px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .hotel-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        /* Ефект зуму картинки при наведенні на картку */
+        .hotel-card:hover .hotel-image {
+            transform: scale(1.05);
+        }
+
+        /* Блок з інформацією */
+        .hotel-content { 
+            padding: 25px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+        
+        /* Верхня частина контенту (текст) */
+        .hotel-text-top { margin-bottom: 15px; }
+
+        .hotel-name { font-size: 1.8em; color: #e67e22; margin-bottom: 5px; }
+        .hotel-location { color: #7f8c8d; font-style: italic; margin-bottom: 15px; font-size: 0.95em; }
+        
+        /* Послуги */
+        .services-list { margin-bottom: 15px; font-size: 0.9em; color: #555; }
+        .service-tag { 
+            display: inline-block; 
+            background: #eee; 
+            padding: 3px 8px; 
+            border-radius: 4px; 
+            margin-right: 5px; 
+            margin-bottom: 5px; 
+        }
+
+        /* Нижня частина контенту (інфо + кнопка) */
+        .hotel-meta { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-top: 1px solid #eee; 
+            padding-top: 15px; 
+        }
+        
+        /* Вільні номери */
+        .rooms-left { 
+            background: #27ae60; 
+            color: white; 
+            padding: 6px 15px; 
+            border-radius: 20px; 
+            font-size: 0.9em; 
+            font-weight: bold; 
+        }
+
+        /* Кнопка */
+        .btn-book {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+        }
+        
+        .btn-book:hover { background-color: #d35400; }
+
+        /* Стиль для порожнього результату */
+        .no-hotels { text-align: center; font-size: 1.2em; color: #7f8c8d; padding: 50px; background: white; border-radius: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📍 Доступні готелі</h1>
+
+        {% for hotel in hotels %}
+        <div class="hotel-card">
+            <div class="hotel-image-block">
+                {% if hotel.image_url %}
+                    <img src="{{ hotel.image_url }}" alt="Фото готелю {{ hotel.name }}" class="hotel-image">
+                {% else %}
+                    <img src="{{ url_for('static', path='images/' ~ hotel.image_id ~ '.webp') }}" alt="Фото готелю {{ hotel.name }}" class="hotel-image">
+                {% endif %}
+            </div>
+
+            <div class="hotel-content">
+                <div class="hotel-text-top">
+                    <h2 class="hotel-name">{{ hotel.name }}</h2>
+                    <div class="hotel-location">🏠 {{ hotel.location }}</div>
+                    
+                    <div class="services-list">
+                        🌟 <strong>Послуги:</strong> 
+                        {% if hotel.services %}
+                            {% for service in hotel.services %}
+                                <span class="service-tag">{{ service }}</span>
+                            {% endfor %}
+                        {% else %}
+                            стандартний набір
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="hotel-meta">
+                    <span class="rooms-left">🛏️ Вільних номерів: {{ hotel.rooms_left }}</span>
+                    <button class="btn-book">Забронювати</button>
+                </div>
+            </div>
+        </div>
+        {% else %}
+            <div class="no-hotels">
+                На жаль, на ці дати вільних готелів не знайдено. 😢<br>
+                Спробуйте змінити дати або локацію.
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
