@@ -1,5 +1,7 @@
 # Окружение
 .env
+.env-non-dev
+.env.local
 .venv
 venv/
 env/
@@ -40,9 +42,6 @@ wheels/
 .coverage
 .coverage.*
 htmlcov/
-
-# Alembic
-alembic.ini
 
 # OS
 .DS_Store
