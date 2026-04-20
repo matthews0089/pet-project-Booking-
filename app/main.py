@@ -4,6 +4,7 @@ from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_versioning import VersionedFastAPI
+from prometheus_fastapi_instrumentator import Instrumentator
 
 from app.logger import logger
 
@@ -85,6 +86,14 @@ app = VersionedFastAPI(app,
     version_format='{major}',
     prefix_format='/api/v{major}',
 )
+
+
+instrumentator = Instrumentator(
+    should_group_status_codes=False,
+    excluded_handlers=[".*admin.*", "/metrics"],
+)
+instrumentator.instrument(app).expose(app)
+
 
 
 app.mount("/static", StaticFiles(directory="app/static"), "static")
